@@ -37,18 +37,20 @@ void autonomous() {
 }
 
 void opcontrol() {
-	Controller master(pros::ONTROLLER_MASTER);
-	Motor_Group left_drive ({1, -2, 3}, MOTOR_GEARSET_6*36/84, MOTOR_ENCODER_DEGREES);
-	Motor_Group right_drive ({-4, 5, -6}, MOTOR_GEARSET_6*36/84, MOTOR_ENCODER_DEGREES);
-	//pros::Motor left_mtr(1);
-	//pros::Motor right_mtr(2);
+	Controller controller;
+	std::shared_ptr<ChassisController> drive =
+        ChassisControllerBuilder()
+            .withMotors({-1, 2, -3}, {4, -5, 6})
+            // blue cartridge, 36:84 external gearing, 4 in wheel diam, 11.5 in wheel track
+			.withDimensions({AbstractMotor::gearset::blue, (36.0 / 84.0)}, {{4.125_in, 10.25_in}, imev5GreenTPR})
+			//.withSensors(RotationSensor{7}, RotationSensor{8, true})
+			//.withOdometry()
+			//.buildOdometry()
+            .build();
 
 	while (true) {
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
-
-		left_drive = left;
-		right_drive = right;
+		drive->getModel()->tank(controller.getAnalog(ControllerAnalog::leftY),
+                            	controller.getAnalog(ControllerAnalog::rightY));
 
 		pros::delay(20);
 	}

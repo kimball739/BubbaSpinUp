@@ -51,8 +51,8 @@
  * namespace.
  */
 // using namespace pros;
-using namespace pros::literals;
-// using namespace okapi;
+//using namespace pros::literals;
+using namespace okapi;
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure
@@ -72,8 +72,6 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-Motor_Group left_drive();
-Motor_Group right_drive();
 //#include <iostream>
 #endif
 
