@@ -327,7 +327,8 @@
     "upload_options": {
       "slot": 1,
       "icon": "pros",
-      "description": "worlds bot"
+      "description": "worlds bot",
+      "after": "screen"
     }
   }
 }
